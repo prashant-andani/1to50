@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>1 to 50</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid >
+    <ion-row>
+      <ion-col text-center *ngIf="showAlert">
+        Time Taken <strong>{{min}} : {{sec}}</strong>
+      </ion-col>
+      <ion-col class="col-50 col-offset-25" text-center *ngIf="isPlaying">
+        <h3>
+          <span *ngIf="min > 9">{{min}}</span>
+          <span *ngIf="min < 10">0{{min}}</span> :
+          <span *ngIf="sec > 9">{{sec}}</span>
+          <span *ngIf="sec < 10">0{{sec}}</span>
+
+        </h3>
+      </ion-col>
+    </ion-row>
+    <ion-row text-center *ngFor="let numRow of numArray; let i = index" class="responsive-lg">
+      <ion-col  (click)="clickBlock(block, i, j)" *ngFor="let block of numRow; let j = index">
+        <button *ngIf="isPlaying && block.value > 9 " ion-button  outline>
+          {{block.value}}
+          </button>
+        <button *ngIf="isPlaying && block.value < 10 " ion-button outline>
+          {{ '0'  + block.value}}
+          </button>
+        <button *ngIf="!isPlaying" ion-button outline>
+          <ion-icon name="radio-button-off"></ion-icon>
+          </button>
+
+      </ion-col>
+
+    </ion-row>
+
+    <!-- Info -->
+    <ion-row>
+      <ion-col text-center>
+        <button ion-button outline (click)="startGame()" *ngIf="!isPlaying">Start Game</button>
+        <button ion-button outline (click)="resetGame()" *ngIf="isPlaying">Restart</button>
+        <button ion-button outline (click)="startGame()" *ngIf="showAlert">Play Again</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
