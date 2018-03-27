@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage {
-
   public clickCount: number = 1;
-  public numArray: { value: number, isSelected: boolean, hasAppeared: boolean }[][] = new Array(5);
+  public numArray: {
+    value: number;
+    isSelected: boolean;
+    hasAppeared: boolean;
+  }[][] = new Array(5);
   public shuffledArray: number[] = new Array(25);
   public nextShuffledArray: number[] = new Array(25);
   public showAlert: boolean = false;
@@ -31,7 +34,9 @@ export class HomePage {
   }
 
   shuffle(arr: number[]) {
-    let tmp: number, current: number, top: number = arr.length;
+    let tmp: number,
+      current: number,
+      top: number = arr.length;
     if (top) {
       while (--top) {
         current = Math.floor(Math.random() * (top + 1));
@@ -47,17 +52,28 @@ export class HomePage {
     for (let i = 0; i < 5; i++) {
       this.numArray[i] = new Array(5);
       for (let j = 0; j < 5; j++) {
-        this.numArray[i][j] = { value: this.shuffledArray[count], isSelected: false, hasAppeared: true };
+        this.numArray[i][j] = {
+          value: this.shuffledArray[count],
+          isSelected: false,
+          hasAppeared: true
+        };
         count++;
       }
     }
   }
 
-  clickBlock(block: { value: number, isSelected: boolean, hasAppeared: boolean }, i: number, j: number) {
-
+  clickBlock(
+    block: { value: number; isSelected: boolean; hasAppeared: boolean },
+    i: number,
+    j: number
+  ) {
     if (this.clickCount === block.value) {
       this.numArray[i][j].isSelected = true;
-      this.numArray[i][j] = { value: this.nextShuffledArray[this.clickCount - 1], isSelected: false, hasAppeared: true };
+      this.numArray[i][j] = {
+        value: this.nextShuffledArray[this.clickCount - 1],
+        isSelected: false,
+        hasAppeared: true
+      };
       this.clickCount++;
     }
     if (this.clickCount === 51) {
@@ -86,7 +102,7 @@ export class HomePage {
     this.shuffledArray = new Array(25);
     this.nextShuffledArray = new Array(25);
     this.showAlert = false;
-    this.timer = 0;//in seconds
+    this.timer = 0; //in seconds
     this.sec = 0;
     this.min = 0;
 
@@ -110,5 +126,4 @@ export class HomePage {
       }
     }, 1000);
   }
-
 }
